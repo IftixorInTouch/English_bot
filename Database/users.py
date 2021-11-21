@@ -59,7 +59,7 @@ class Database:
 
     async def select_users(self):
         sql = """SELECT * FROM users"""
-        return await self.execute(sql, fetchrow=True)
+        return await self.execute(sql, fetch=True)
 
     async def drop_user(self, user_id):
         sql = f"""DELETE FROM Users WHERE user_id={user_id}"""
@@ -67,3 +67,16 @@ class Database:
 
     async def delete_users(self):
         await self.execute("DELETE FROM Users WHERE TRUE", execute=True)
+
+    async def create_table_beginner(self):
+        sql = """CREATE TABLE IF NOT EXISTS Beginner_words(
+        id SERIAL PRIMARY KEY,
+        word_en VARCHAR (50),
+        word_rus VARCHAR (50),
+        unit VARCHAR (8),
+        file_id VARCHAR (255));"""
+        await self.execute(sql, execute=True)
+
+    async def select_beginner_words(self):
+        sql = """SELECT * FROM Beginner_words"""
+        return await self.execute(sql, fetch=True)
