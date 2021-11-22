@@ -1,15 +1,11 @@
-from gtts import gTTS
+import googletrans
+from googletrans import Translator
 
-mytext = 'Welcome to geeksforgeeks!'
+print(googletrans.LANGUAGES)
+text = "Привет"
+translator = Translator()
 
-language = 'en'
-
-myobj = gTTS(text=mytext, lang=language, slow=False)
-
-myobj.save("welcome - приветсвие")
-
-
-
+print(translator.detect(text))
 # import pyttsx3
 # engine = pyttsx3.init()
 #

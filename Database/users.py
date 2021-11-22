@@ -71,12 +71,28 @@ class Database:
     async def create_table_beginner(self):
         sql = """CREATE TABLE IF NOT EXISTS Beginner_words(
         id SERIAL PRIMARY KEY,
-        word_en VARCHAR (50),
-        word_rus VARCHAR (50),
-        unit VARCHAR (8),
+        word_en VARCHAR (100),
+        word_rus VARCHAR (100),
+        unit INTEGER ,
         file_id VARCHAR (255));"""
         await self.execute(sql, execute=True)
 
     async def select_beginner_words(self):
         sql = """SELECT * FROM Beginner_words"""
+        return await self.execute(sql, fetch=True)
+
+    async def select_words_by_unit(self, unit):
+        sql = f"""SELECT * FROM Beginner_words WHERE unit={unit}"""
+        return await self.execute(sql, fetch=True)
+
+    async def select_en_words(self):
+        sql = """SELECT word_en FROM Beginner_words"""
+        return await self.execute(sql, fetch=True)
+
+    async def update_add_file_id(self, file_id, word_en):
+        sql = """UPDATE Beginner_words SET file_id=$1 WHERE word_en=$2"""
+        await self.execute(sql, file_id, word_en, execute=True)
+
+    async def select_file_ids_by_unit(self, unit):
+        sql = f"""SELECT file_id FROM Beginner_words WHERE unit={unit}"""
         return await self.execute(sql, fetch=True)

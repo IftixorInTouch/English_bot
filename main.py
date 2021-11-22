@@ -9,7 +9,8 @@ async def my_commands(dp):
     await db.create_table_users()
     await dp.bot.set_my_commands(
         [
-            BotCommand(command="start", description="start")
+            BotCommand(command="start", description="start"),
+            BotCommand(command="translator", description="translator")
         ]
     )
 
